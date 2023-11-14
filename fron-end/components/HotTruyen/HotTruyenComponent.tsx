@@ -1,24 +1,44 @@
-import HotTruyenDot from "./HotTruyenDot";
+
+'use client'
 import Link from "next/link";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+import "../../Style/StyleAppSwiper.css" 
+import { FreeMode, Pagination } from 'swiper/modules';
 interface IProps {
   blogs: IBlog[];
 }
 
 export default function HotTruyenComponent(props: IProps) {
   const { blogs } = props;
-  const goToSliderbtDot = (index) => {
-    console.log(index);
-    
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + '</span>';
+    },
   };
   const ItemRender = blogs.filter((item) => item.id < 7);
   return (
-    <div className="flex flex-col my-[80px] gap-3 ">
-      <div className=" grid  w-screen grid-cols-dextopS overflow-hidden  lg:gap-2 lg:w-[1000px] m-auto lg:mb-5 ">
-        {ItemRender.map((item) => {
+    <div className="flex flex-col my-[80px] gap-3 mt-8">
+      
+        <div className=" relactive   text-white font-bold lg:text-xl rounded-lg ">
+        <div className="h-[320px] bg-gradient-to-r from-purple-500 to-pink-500 absolute w-screen  right-0 -top-24 lg:h-[600px]"></div>
+        <Swiper
+        className=" lg:gap-2 lg:w-[1000px] m-auto lg:mb-5 "
+        slidesPerView={1}
+        spaceBetween={1}
+        pagination={{
+          clickable: true,
+        }}
+        
+        modules={[FreeMode, Pagination]}
+      >
+        {ItemRender.map((item ,index) => {
           return (
-            <div className="relactive  box-content text-white font-bold lg:text-xl rounded-lg ">
-              <div className="h-[350px] bg-gradient-to-r from-purple-500 to-pink-500 absolute w-screen z-10 right-0 -top-24 lg:h-[650px]"></div>
-              <div className="w-screen lg:w-[1000px]  lg:h-[550px]  h-[250px] lg:m-auto rounded-xl  object-cover z-20  relative ">
+            <SwiperSlide key={index} >
+              <div className="w-screen lg:w-[1000px] cursor-pointer  lg:h-[550px]  h-[250px] lg:m-auto rounded-xl  object-cover  relative ">
                 <img
                   className=" rounded-2xl absolute px-2  h-full w-full "
                   src={item.img}
@@ -36,19 +56,14 @@ export default function HotTruyenComponent(props: IProps) {
                   </button>
                 </div>
               </div>
-            </div>
+            </SwiperSlide>
           );
         })}
-      </div>
-      <div className=" text-black  flex justify-center gap-1 ">
-        {ItemRender.map((item, index) => {
-          return (
-            <div key={index} onClick={() => goToSliderbtDot(index)}>
-              <HotTruyenDot />
-            </div>
-          );
-        })}
-      </div>
+      </Swiper>
+        
+        </div>
+       
+    
     </div>
   );
 }

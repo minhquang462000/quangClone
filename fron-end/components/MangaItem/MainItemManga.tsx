@@ -3,28 +3,30 @@ import { GoClock } from "react-icons/go";
 import Link from "next/link";
 const MainItemManga = () => {
   return (
-    <div className="border rounded-t-lg overflow-hidden h-[700px] shadow-md">
-        <div className="relative">
-          <div className="absolute">
-            <img
+    <div className="border rounded-t-lg overflow-hidden h-[700px] shadow-md 
+  ">
+        <div className="relative ">
+          <div className="absolute lg:h-[500px] w-screen">
+            <img className='h-full w-full'
               src="https://i.ytimg.com/vi/JDqq2NDXOts/maxresdefault.jpg"
               alt=""
             />
           </div>
-          <div className="absolute top-40">
-            <div className="m-auto w-[140px] h-[210px] shadow-md rounded-xl overflow-hidden object-cover ">
+          <div className="absolute top-40 lg:top-80 lg:flex lg:items-end lg:left-20">
+            <div className="m-auto w-[140px] h-[210px] shadow-md rounded-xl overflow-hidden object-cover lg:w-[250px] lg:h-[350px] ">
               <img
                 className="w-full h-full "
                 src="https://photo-baomoi.bmcdn.me/w700_r1/2023_10_18_304_47257074/9291fb54cb1822467b09.jpg"
                 alt=""
               />
             </div>
-            <div className="flex flex-col justify-center items-center mt-4">
-              <div className="flex flex-col mb-4 px-3">
-                <h2 className="font-extrabold text-xl">
-                  Oneshot nhưng lại là series
+            <div className="flex flex-col justify-center items-center mt-4 lg:text-left">
+              <div className="flex flex-col mb-4 px-3 lg:flex-col-reverse  lg:text-white">
+                <h2 className="font-extrabold text-xl lg:text-2xl">
+                  Tên truyện
                 </h2>
-                <p className="font-sans text-[14px]">
+                <p className="font-sans text-[14px] hidden lg:block">Tên tác giả</p>
+                <p className="font-sans text-[14px] lg:hidden">
                   Cụ thể tên của tác giả sẽ được đề cập trong tên mỗi chương.
                 </p>
               </div>
@@ -34,7 +36,7 @@ const MainItemManga = () => {
                 </span>
                 <span>2 giờ trước</span>
               </div>
-              <ul className="font-semibold text-sm flex flex-wrap  gap-1 px-2">
+              <ul className="font-semibold text-sm flex flex-wrap  gap-1 px-2 lg:hidden">
                 <Link href={""}>
                   <li className="bg-gray-300 px-2 py-[2px] rounded-xl flex gap-1 items-center">
                     <span>manga</span>
