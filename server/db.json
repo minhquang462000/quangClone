@@ -5,14 +5,19 @@
       "name": "nmquang - admin",
       "age": 19,
       "email": "nmquang@gmail.com",
-      "password": "123456"
+      "password": "123456",
+      "role":"admin",
+      "avt":""
+      
     },
     {
       "id": 2,
       "name": "quangtety - user",
       "age": 20,
       "email": "quangtety@gmail.com",
-      "password": "123456"
+      "password": "123456",
+      "role":"admin",
+      "avt":""
     }
   ],
   "products": [
