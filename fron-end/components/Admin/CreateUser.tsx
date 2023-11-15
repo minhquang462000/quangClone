@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { storageFirebase } from "../../services/firebace";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import axios from "axios";
+// màn hinh be the
 
-const CreateUser = (props :any) => {
+const CreateUser = (props: any) => {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -14,7 +15,7 @@ const CreateUser = (props :any) => {
   });
   const [fileData, setFileData] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
-  const handleChangeData = (e:any) => {
+  const handleChangeData = (e: any) => {
     const { name, value } = e.target;
     setFormData((old) => {
       return {
@@ -23,7 +24,7 @@ const CreateUser = (props :any) => {
       };
     });
   };
-  const handleChangeFile = (e:any) => {
+  const handleChangeFile = (e: any) => {
     setFileData(e.target.files[0]);
   };
 
@@ -47,7 +48,7 @@ const CreateUser = (props :any) => {
     uploadBytes(imageRef, fileData).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         axios
-          .post("http://localhost:3000/users", {
+          .post("http://localhost:8000/users", {
             ...formData,
             avt: url,
             isActive: true,

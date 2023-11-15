@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "components/Admin/CreateUser.tsx"
-  ],
+, "services/firebace.js"  ],
   "exclude": [
     "node_modules"
   ]
