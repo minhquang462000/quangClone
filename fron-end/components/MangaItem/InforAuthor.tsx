@@ -2,8 +2,13 @@
 'use client'
 import React, { useState } from "react";
 import { BsMessenger, BsFacebook } from "react-icons/bs";
-const InforAuthor = () => {
+
+interface IProps {
+  blogs: IBlog[];
+}
+const InforAuthor = (props:IProps) => {
   const [isShorten,setIsShorten] =useState<boolean>(true)
+ const { itemProduct } = props
   return (
       <div className={`bg-slate-200 text-left rounded-lg overflow-hidden ${isShorten ? "h-[200px]":"h-max"} relative `}>
         <div className="p-4 ">
@@ -11,7 +16,7 @@ const InforAuthor = () => {
             <div className="flex items-center gap-2">
               <span className="w-[30px] h-[30px] flex justify-center items-center rounded-full font-bold text-sm  bg-blue-300 text-blue-600">a</span>
               <div className="flex flex-col font-sans ">
-                <span className="font-bold text-sm">ĐẤU PHÁ THƯƠNG KHUNG</span>
+                <span className="font-bold text-sm"> {itemProduct?.name}</span>
                 <span className=" font-extralight text-xs">4 TRUYỆN</span>
               </div>
             </div>

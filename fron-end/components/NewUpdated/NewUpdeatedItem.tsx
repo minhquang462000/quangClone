@@ -16,7 +16,7 @@ const NewUpdeateItem = (props: IProps) => {
       <div className="grid  grid-cols-newUpdate gap-3 lg:grid-cols-7 lg:gap-5">
         {blogs.map(item=>{
           return <div className="text-xl flex  gap-1 xl:flex-col ">
-          <Link href={""} className="w-[60px] h-[80px]  lg:w-[170px] lg:h-[250px]">
+          <Link href={`/mangas/${item.id}`} className="w-[60px] h-[80px]  lg:w-[170px] lg:h-[250px]">
             <img
               className="rounded-lg w-full h-full object-cover"
               src={item.img}

@@ -21,9 +21,9 @@ export default function HeaderMenuList() {
           Truyện đã tải xuống
         </li>{" "}
       </Link>
-      <Link href={""}>
+      <Link href={"/login"}>
         {" "}
-        <li className={` ${classNameLi}`}> Cắt Wedtoon</li>{" "}
+        <li className={` ${classNameLi} text-yellow-500 font-semibold `}> DASHBOARD</li>{" "}
       </Link>
       <Link href={""}>
         {" "}

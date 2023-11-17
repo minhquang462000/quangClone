@@ -2,29 +2,28 @@
   "users": [
     {
       "id": 1,
-      "name": "nmquang - admin",
+      "name": "nmquang",
       "age": 19,
       "email": "nmquang@gmail.com",
-      "password": "123456",
       "role": "admin",
-      "avt": ""
+      "password": "123456"
     },
     {
       "id": 2,
       "name": "quangtety - user",
       "age": 20,
       "email": "quangtety@gmail.com",
-      "password": "123456",
-      "role": "admin",
-      "avt": ""
+      "role": "user",
+      "password": "123456"
     },
     {
-      "name": "Nguyễn Minh Quang",
-      "age": "12",
+      "name": "vegeta",
+      "age": "23",
       "email": "nguyenminhquang.cd2017@gmail.com",
-      "password": "123123",
-      "avt": "https://firebasestorage.googleapis.com/v0/b/project2-rikkey.appspot.com/o/images%2FAmi%20Fat%20Cat%20Ami%20Cat%20Sticker%20-%20Ami%20Fat%20Cat%20Ami%20Cat%20Fgcat%20-%20Discover%20%26%20Share%20GIFs.gif?alt=media&token=20915431-8afa-4d2c-8582-dd20472162db",
-      "isActive": true,
+      "password": "sdsad",
+      "avt": "https://firebasestorage.googleapis.com/v0/b/project2-rikkey.appspot.com/o/images%2Fpngegg.png?alt=media&token=c0704890-251c-4770-b321-8eb35ae9f20b",
+      "rule": "user",
+      "isActive": false,
       "id": 3
     }
   ],

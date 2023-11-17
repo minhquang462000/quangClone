@@ -1,6 +1,7 @@
 "use client";
 import CreateUser from "@/components/Admin/CreateUser";
 import ListUser from "@/components/Admin/ListUser";
+import Link from "next/link";
 import React from "react";
 import { useState, useCallback } from "react";
 
@@ -19,7 +20,7 @@ const UserManeger = () => {
   },[tabIndex]);
 
   return (
-    <div className="p-8 ">
+    <div className="p-8 w-[1280px] m-auto ">
       <div className="flex gap-4 mb-5">
         <div
           onClick={() => setTadIndex(0)}
@@ -37,10 +38,11 @@ const UserManeger = () => {
         >
           Create Users
         </div>
+        <Link href ="/admin/product"> <div className="p-4 py-2  rounded-lg shadow-lg text-yellow-500 cursor-pointer">Goto Products</div></Link>
       </div>
       {renderByTab()}
 
-      <div></div>
+     
     </div>
   );
 };

@@ -6,12 +6,10 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import axios from "axios";
 // màn hinh be the
 
-const CreateUser = (props: any) => {
+const CreateProduct = (props: any) => {
   const [formData, setFormData] = useState({
     name: "",
-    age: "",
-    email: "",
-    password: "",
+    status: "done",
   });
   const [fileData, setFileData] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -43,16 +41,14 @@ const CreateUser = (props: any) => {
     if (fileData === null) {
       return;
     }
-    const imageRef = ref(storageFirebase, `images/${fileData.name}`);
+    const imageRef = ref(storageFirebase, `images/product/${fileData.name}`);
 
     uploadBytes(imageRef, fileData).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         axios
-          .post("http://localhost:8000/users", {
+          .post("http://localhost:8000/products", {
             ...formData,
-            avt: url,
-             rule:"user",
-            isActive: true,
+            img: url,
           })
           .then((res) => {
             props.setTabIndex(0);
@@ -101,41 +97,18 @@ const CreateUser = (props: any) => {
           />
         </div>
         <div>
-          <label htmlFor="age">age :</label>
+          <label htmlFor="name">Status :</label>
           <input
             type="text"
             className="relative bg-gray-50ring-0 outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-            placeholder="age..."
-            id="age"
-            value={formData.age}
+            placeholder="status..."
+            id="status"
+            value={formData.status}
             onChange={handleChangeData}
-            name="age"
+            name="status"
           />
         </div>
-        <div>
-          <label htmlFor="email">email :</label>
-          <input
-            type="text"
-            className="relative bg-gray-50ring-0 outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-            placeholder="email..."
-            id="email"
-            value={formData.email}
-            onChange={handleChangeData}
-            name="email"
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Password :</label>
-          <input
-            type="text"
-            className="relative bg-gray-50ring-0 outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-            placeholder="password..."
-            id="password"
-            value={formData.password}
-            onChange={handleChangeData}
-            name="password"
-          />
-        </div>
+        
         <button
           className="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2  active:brightness-90 active:translate-y-[2px] h-max hover:font-bold hover:bg-blue-600  rounded-xl"
           onClick={handleSubmit}
@@ -147,4 +120,4 @@ const CreateUser = (props: any) => {
   );
 };
 
-export default CreateUser;
+export default CreateProduct;

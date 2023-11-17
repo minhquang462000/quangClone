@@ -6,22 +6,31 @@ import { useEffect, useState } from "react";
 
 
 const ListUser = () => {
+  async function getUser() {
+    const res = await axios.get("http://localhost:8000/users");
+    const data = res.data;
+    setUserList(data);
+  }
+  getUser();
   const [userList, setUserList] = useState([]);
+
   useEffect(() => {
-    async function getUser() {
-      const res = await axios.get("http://localhost:8000/users");
-      const data = res.data;
-      setUserList(data);
-    }
-    getUser();
+  
   }, []);
-  const classThTd = "border border-slate-600 flex items-center justify-center truncate";
+  const handleChangeActive = async (item : number)=>{
+    console.log(item.isActive);
+    
+    await axios.put(`http://localhost:8000/users/${item.id}`,{...item, isActive: !item.isActive})
+    getUser()
+  }
+  const classThTd = "border border-slate-600 flex items-center justify-center truncate h-[100px]";
   return (
-    <div>
+    <div   >
       {userList.length === 0 && "không có dữ liệu"}
       {userList.length !== 0 && (     <table className="w-full border border-slate-500 border-collapse">
           <thead>
-            <tr className="grid grid-cols-5">
+            <tr className="grid grid-cols-6">
+              <th className={classThTd}>ID</th>
               <th className={classThTd}>avt</th>
               <th className={classThTd}>name</th>
               <th className={classThTd}>age</th>
@@ -32,9 +41,12 @@ const ListUser = () => {
           <tbody>
             {userList.map((item) => {
               return (
-                <tr className="grid grid-cols-5" key={item.id}>
+                <tr className="grid grid-cols-6" key={item.id}>
+                   <td className={classThTd}>
+                    <span className="truncate">{item.id}</span>
+                  </td>
                   <td className={classThTd}>
-                    <img src={item.avt} alt="" className="w-16" />
+                  <img className="w-[60px] h-full object-cover" src={item.avt} alt=""  />
                   </td>
                   <td className={classThTd}>
                     <span className="truncate">{item.name}</span>
@@ -43,7 +55,9 @@ const ListUser = () => {
                   <td className={classThTd}>
                     <span className="truncate">{item.email}</span>
                   </td>
-                  <td className={classThTd}>{item.isActive ? <span>active</span> : <span>de-active</span>}</td>
+                  <td className={classThTd}>
+                  <div onClick={()=>{handleChangeActive(item)}}> {item.isActive ? <span className="bg-green-500 rounded-lg px-4 py-1 text-white  hover:font-bold hover:bg-green-700 cursor-pointer">active</span> : <span className="bg-red-500 rounded-lg px-4 py-1 text-white  hover:font-bold hover:bg-red-700 cursor-pointer">de-active</span>}</div>
+                  </td>
                 </tr>
               );
             })}

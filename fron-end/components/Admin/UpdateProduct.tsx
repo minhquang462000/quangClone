@@ -6,15 +6,20 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import axios from "axios";
 // màn hinh be the
 
-const CreateUser = (props: any) => {
+interface IProps {
+  setTabIndex:(value:number)=>void;
+  blog:IBlog | null;
+  setBlog:(value:IBlog |null)=>void,
+}
+const UpdateProduct = (props: IProps) => {
+  const {setTabIndex ,setBlog,blog} =props
+  const [idItem,setIdItem]  =useState<number>(blog.id)
   const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    email: "",
-    password: "",
+    name: blog?.name,
+    status:blog?.status,
+    img:blog?.img
   });
   const [fileData, setFileData] = useState(null);
-  const [imagePreview, setImagePreview] = useState("");
   const handleChangeData = (e: any) => {
     const { name, value } = e.target;
     setFormData((old) => {
@@ -29,40 +34,14 @@ const CreateUser = (props: any) => {
   };
 
   //preview Image Avatar
-  useEffect(() => {
-    if (fileData) {
-      const reader = new FileReader();
-      const url = reader.readAsDataURL(fileData);
-      reader.onloadend = function () {
-        setImagePreview(reader.result);
-      };
-      setImagePreview(url);
-    }
-  }, [fileData]);
-  const handleSubmit = () => {
-    if (fileData === null) {
-      return;
-    }
-    const imageRef = ref(storageFirebase, `images/${fileData.name}`);
-
-    uploadBytes(imageRef, fileData).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        axios
-          .post("http://localhost:8000/users", {
-            ...formData,
-            avt: url,
-             rule:"user",
-            isActive: true,
-          })
-          .then((res) => {
-            props.setTabIndex(0);
-          });
-      });
-    });
+  const handleUpdate = async () => {
+   const UpdateData = await axios.put(`http://localhost:8000/products/${idItem}`,formData)
+   setTabIndex(0)
   };
 
   return (
-    <div className="lg:flex items-center justify-start gap-10">
+    <div className="flex flex-col  items-center justify-start gap-10">
+      <div>UPDATE PRODUCT</div>
       <div className="flex flex-col items-center justify-center">
         {/* <img src={imagePreview} alt="" className="h-12 w-12 rounded-full overflow-hidden" /> */}
         <label
@@ -70,13 +49,11 @@ const CreateUser = (props: any) => {
           className="h-16 w-16 bg-gray-200 rounded-full overflow-hidden cursor-pointer"
         >
           {" "}
-          {imagePreview && (
-            <img
-              src={imagePreview}
+          <img
+              src={blog?.img}
               alt=""
               className="h-full w-full rounded-full overflow-hidden object-cover"
             />
-          )}
         </label>
 
         <input
@@ -101,50 +78,27 @@ const CreateUser = (props: any) => {
           />
         </div>
         <div>
-          <label htmlFor="age">age :</label>
+          <label htmlFor="name">Status :</label>
           <input
             type="text"
             className="relative bg-gray-50ring-0 outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-            placeholder="age..."
-            id="age"
-            value={formData.age}
+            placeholder="status..."
+            id="status"
+            value={formData.status}
             onChange={handleChangeData}
-            name="age"
+            name="status"
           />
         </div>
-        <div>
-          <label htmlFor="email">email :</label>
-          <input
-            type="text"
-            className="relative bg-gray-50ring-0 outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-            placeholder="email..."
-            id="email"
-            value={formData.email}
-            onChange={handleChangeData}
-            name="email"
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Password :</label>
-          <input
-            type="text"
-            className="relative bg-gray-50ring-0 outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-            placeholder="password..."
-            id="password"
-            value={formData.password}
-            onChange={handleChangeData}
-            name="password"
-          />
-        </div>
+        
         <button
           className="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2  active:brightness-90 active:translate-y-[2px] h-max hover:font-bold hover:bg-blue-600  rounded-xl"
-          onClick={handleSubmit}
+          onClick={handleUpdate}
         >
-          Submit
+          Update
         </button>
       </div>
     </div>
   );
 };
 
-export default CreateUser;
+export default UpdateProduct;
