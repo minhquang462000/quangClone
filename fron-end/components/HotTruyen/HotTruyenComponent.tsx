@@ -42,15 +42,15 @@ export default function HotTruyenComponent(props: IProps) {
                     alt=""
                   />
                   <div className="absolute flex flex-col bottom-0  p-6 pb-8 ">
-                    <Link href={""}>
+                    <Link href={`/mangas/${item.id}`}>
                       <span>{item.name}</span>
                     </Link>
                     <span className="text-base font-serif">Đoạn mô tả</span>
                   </div>
                   <div className="absolute bottom-0 p-6 pb-8  right-0 hidden lg:block">
-                    <button className="bg-blue-800 rounded-lg bg-opacity-70 px-8 py-2">
+                  <Link href={`/mangas/${item.id}`}>  <button className="bg-blue-800 rounded-lg bg-opacity-70 px-8 py-2">
                       XEM THÔNG TIN
-                    </button>
+                    </button></Link>
                   </div>
                 </div>
               </SwiperSlide>

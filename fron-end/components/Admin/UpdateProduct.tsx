@@ -13,12 +13,13 @@ interface IProps {
 }
 const UpdateProduct = (props: IProps) => {
   const {setTabIndex ,setBlog,blog} =props
-  const [idItem,setIdItem]  =useState<number>(blog.id)
+  const idItem = blog?.id
   const [formData, setFormData] = useState({
     name: blog?.name,
     status:blog?.status,
     img:blog?.img
   });
+  const [imagePreview, setImagePreview] = useState(blog.img);
   const [fileData, setFileData] = useState(null);
   const handleChangeData = (e: any) => {
     const { name, value } = e.target;
@@ -29,13 +30,30 @@ const UpdateProduct = (props: IProps) => {
       };
     });
   };
+  useEffect(() => {
+  //preview Image Avatar
+    if (fileData) {
+      const reader = new FileReader();
+      const url = reader.readAsDataURL(fileData);
+      reader.onloadend = function () {
+        setImagePreview(reader.result);
+      };
+      setImagePreview(url);
+    }
+    if (fileData === null) {
+      return;
+    }
+    const imageRef = ref(storageFirebase, `images/product/${fileData.name}`);
+
+    uploadBytes(imageRef, fileData).then();
+  }, [fileData]);
   const handleChangeFile = (e: any) => {
     setFileData(e.target.files[0]);
   };
 
-  //preview Image Avatar
   const handleUpdate = async () => {
-   const UpdateData = await axios.put(`http://localhost:8000/products/${idItem}`,formData)
+    
+   await axios.put(`http://localhost:8000/products/${idItem}`,{...formData,img:imagePreview})
    setTabIndex(0)
   };
 
@@ -49,11 +67,13 @@ const UpdateProduct = (props: IProps) => {
           className="h-16 w-16 bg-gray-200 rounded-full overflow-hidden cursor-pointer"
         >
           {" "}
-          <img
-              src={blog?.img}
+          {imagePreview && (
+            <img
+              src={imagePreview}
               alt=""
               className="h-full w-full rounded-full overflow-hidden object-cover"
             />
+          )}
         </label>
 
         <input

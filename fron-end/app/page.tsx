@@ -17,7 +17,7 @@ export default function Home() {
       setProductList(res.data);
     };
     getProduct();
-  }, [productList]);
+  }, []);
   if (!productList) {
     return <Loading/>
   }

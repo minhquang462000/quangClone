@@ -15,7 +15,7 @@ useEffect(()=>{
     setProductNewestList(res.data)
   }
   getProductList()
-})
+},[])
 if (!productNewestList) {
   return <Loading/>
 }

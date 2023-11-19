@@ -5,16 +5,19 @@ import React from 'react'
 interface IProps {
     setIsShowComfirm:(value:boolean)=>void;
     idItem:number,
-    getProduct:()=>{}
+    setProductList:(value:IBlog | null)=>void;
 }
 const ComfirmDelete = (props :IProps) => {
-    const {setIsShowComfirm,idItem} =props
+    const {setIsShowComfirm,idItem ,setProductList} =props
     
 
     const handleDelete = async ()=>{
      const deleteItem =   await axios.delete(`http://localhost:8000/products/${idItem}`);
      setIsShowComfirm(false)
-     getProduct()
+     const res = await axios.get("http://localhost:8000/products")
+     const data =res.data?.sort((a:any ,b:any) =>b.id - a.id);
+     setProductList(data)
+
     }
   return (
     <div className='m-auto lg:w-[500px] lg:h-[200px] rounded-lg p-5  bg-stone-300 flex flex-col justify-between'>

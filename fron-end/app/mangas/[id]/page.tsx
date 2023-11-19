@@ -18,7 +18,7 @@ const Manga = ({ params }: { params: { id: string } }) => {
       setItemProduct(res.data)
     }
     getProductList()
-  })
+  },[])
   if (!itemProduct) {
     return <Loading/>
   }

@@ -6,22 +6,26 @@ import { useEffect, useState } from "react";
 
 
 const ListUser = () => {
-  async function getUser() {
-    const res = await axios.get("http://localhost:8000/users");
-    const data = res.data;
-    setUserList(data);
-  }
-  getUser();
+ 
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-  
+    async function getUser() {
+      const res = await axios.get("http://localhost:8000/users");
+      const data = res.data;
+      setUserList(data);
+    }
+    getUser();
   }, []);
   const handleChangeActive = async (item : number)=>{
-    console.log(item.isActive);
     
-    await axios.put(`http://localhost:8000/users/${item.id}`,{...item, isActive: !item.isActive})
-    getUser()
+   const userUpdate = (await axios.put(`http://localhost:8000/users/${item.id}`,{...item, isActive: !item.isActive})).data
+    const newUserList = userList.map(user =>{
+      if (user.id === userUpdate.id) {
+        user.isActive = userUpdate.isActive
+      } return user
+    })
+    setUserList(newUserList)
   }
   const classThTd = "border border-slate-600 flex items-center justify-center truncate h-[100px]";
   return (

@@ -12,17 +12,18 @@ interface IPops {
  
 
 const ListProduct = (props: IPops) => {
-  const [userList, setUserList] = useState([]);
+  const [productList, setProductList] = useState([]);
   const {setTabIndex ,setBlog,blog} =props
   const [isShowComfirm,setIsShowComfirm] =useState<boolean>(false)
   const [idItem,setIdItem]=useState(0)
 
-  async function getProduct() {
-    const res = await axios.get("http://localhost:8000/products");
-    const data = res.data;
-    setUserList(data);
-  }
+ 
   useEffect(() => {
+    async function getProduct() {
+      const res = await axios.get("http://localhost:8000/products");
+      const data = res.data?.sort((a:any ,b:any) =>b.id - a.id);
+      setProductList(data);
+    }
     getProduct();
   }, []);
  
@@ -33,10 +34,10 @@ const ListProduct = (props: IPops) => {
   const classThTd = "border border-slate-600 p-2 flex items-center justify-center truncate w-full  h-[100px]";
   return (
    <div className="relative">
-    <div className={`absolute left-[35%] ${ isShowComfirm ? "block":"hidden"}`}><ComfirmDelete setIsShowComfirm={setIsShowComfirm} idItem={idItem} getProduct={getProduct()}></ComfirmDelete></div>
-     <div   userList ={userList?.sort((a:any ,b:any) =>b.id - a.id)}>
-      {userList.length === 0 && "không có dữ liệu"}
-      {userList.length !== 0 && (     <table className="w-full border border-slate-500 border-collapse">
+    <div className={`absolute top-5 left-[35%] ${ isShowComfirm ? "block":"hidden"}`}><ComfirmDelete setIsShowComfirm={setIsShowComfirm} idItem={idItem} setProductList ={setProductList}  ></ComfirmDelete></div>
+     <div>
+      {productList.length === 0 && "không có dữ liệu"}
+      {productList.length !== 0 && (     <table className="w-full border border-slate-500 border-collapse">
           <thead>
             <tr className="grid grid-cols-5">
               <th className={classThTd}>ID</th>
@@ -47,7 +48,7 @@ const ListProduct = (props: IPops) => {
             </tr>
           </thead>
           <tbody>
-            {userList.map((item) => {
+            {productList.map((item) => {
               return (
                 <tr className="grid grid-cols-5" key={item.id}>
                   <td className={classThTd}>

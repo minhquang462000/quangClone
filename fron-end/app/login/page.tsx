@@ -80,7 +80,7 @@ export default function LoginPage() {
               className="px-4 py-2 rounded-lg outline-blue-400"
               id="password"
               name="password"
-              type={isShowPass ? "text" : "password"}
+              type="password"
               placeholder="Mật khẩu"
               onChange={handleChangeData}
             />
@@ -91,19 +91,19 @@ export default function LoginPage() {
               htmlFor="checkbox"
               className="text-xs font-semibold text-stone-600"
             >
-              Kiểm tra mật khẩu
+              GHI NHỚ MẬT KHẨU
             </label>
           </div>
         </div>
-        <div className="bg-blue-600 text-white font-bold text-sm px-5 py-3 rounded-lg hover:bg-blue-800 w-max m-auto">
+        <div className="bg-blue-600 text-white font-bold text-sm px-5 py-3 lg:px-8 rounded-lg hover:bg-blue-800 w-max m-auto">
           <button onClick={HandleSubmit}>ĐĂNG NHẬP</button>
         </div>
         <div className="flex flex-col text-blue-500 font-bold text-sm gap-3 text-left lg:flex-row lg:m-auto">
-          <Link href={""}>
-            <span>Quên mật khẩu?</span>
+          <Link href={"/request-reset-password"}>
+            <span className="hover:text-blue-700">Quên mật khẩu?</span>
           </Link>
-          <Link href={""}>
-            <span>Đăng ký tài khoản</span>
+          <Link href={"/register"}>
+            <span className="hover:text-blue-700">Đăng ký tài khoản</span>
           </Link>
         </div>
       </div>

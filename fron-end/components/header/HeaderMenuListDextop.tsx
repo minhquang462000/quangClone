@@ -8,7 +8,7 @@ export default function HeaderMenuListDextop() {
         <li className={` ${classNameLi}`}>Đăng nhập</li>
       </Link>
 
-      <Link href={""}>
+      <Link href={"/register"}>
         {" "}
         <li className={` ${classNameLi}`}>Đăng ký</li>
       </Link>
