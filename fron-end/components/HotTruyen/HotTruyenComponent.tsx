@@ -37,7 +37,7 @@ export default function HotTruyenComponent(props: IProps) {
               <SwiperSlide key={index}>
                 <div className="w-screen lg:w-[1000px] cursor-pointer  lg:h-[550px]  h-[250px] lg:m-auto rounded-xl  object-cover  relative ">
                   <img
-                    className=" rounded-2xl absolute px-2  h-full w-full "
+                    className=" rounded-2xl absolute px-2 object-cover  h-full w-full "
                     src={item.img}
                     alt=""
                   />
